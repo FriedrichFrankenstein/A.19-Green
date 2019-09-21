@@ -1,0 +1,7 @@
+#include <iostream>
+#include <fstream>
+#include "SummaOfMoney.h"
+#include "MoneySumma.h"
+#include <string.h>
+
+MoneySumma FileScanf(string path);

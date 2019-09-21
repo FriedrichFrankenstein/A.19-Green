@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1560853401 source:c:\users\user\desktop\Практика\Завдання 3\task3.3\main.cpp
+	<iostream>
+	<fstream>
+	<string>
+	<cmath>
+	<conio.h>
+	"Groshi.h"
+
+1561041871 c:\users\user\desktop\Практика\Завдання 3\task3.3\groshi.h
+	<iostream>
+	<fstream>
+	<string>
+	<cmath>
+

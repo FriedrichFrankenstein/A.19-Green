@@ -1,0 +1,24 @@
+# depslib dependency file v1.0
+1560538030 source:c:\users\user\desktop\Практика\Завдання 3\task3\main.cpp
+	<iostream>
+	<fstream>
+	"SummaOfMoney.h"
+	"MoneySumma.h"
+
+1560193457 c:\users\user\desktop\Практика\Завдання 3\task3\summaofmoney.h
+
+1560507635 c:\users\user\desktop\Практика\Завдання 3\task3\moneysumma.h
+	"SummaOfMoney.h"
+
+1560507449 source:c:\users\user\desktop\Практика\Завдання 3\task3\summaofmoney.c
+	"SummaOfMoney.h"
+	<string.h>
+	<stdio.h>
+	<stdlib.h>
+
+1560509174 source:c:\users\user\desktop\Практика\Завдання 3\task3\summaofmoney.cpp
+	<iostream>
+	<fstream>
+	"SummaOfMoney.h"
+	"MoneySumma.h"
+
