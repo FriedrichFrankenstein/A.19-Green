@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1560813646 source:c:\users\user\desktop\Практика\Завдання 3\proba33\main.cpp
+	<iostream>
+	<fstream>
+	<string>
+	<cmath>
+	<conio.h>
+

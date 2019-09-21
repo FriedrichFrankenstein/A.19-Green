@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1561113326 source:c:\users\user\desktop\Практика\Завдання 5\task5\main.cpp
+	<iostream>
+	<fstream>
+	<cstring>
+	<algorithm>
+	<windows.h>
+

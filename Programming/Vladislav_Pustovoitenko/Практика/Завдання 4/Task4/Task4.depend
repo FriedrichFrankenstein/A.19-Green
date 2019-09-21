@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1561035819 source:c:\users\user\desktop\Практика\Завдання 4\task4\main.cpp
+	<iostream>
+	<conio.h>
+	<windows.h>
+	<fstream>
+
