@@ -1,0 +1,22 @@
+# depslib dependency file v1.0
+1514144174 source:e:\programming\trash\test\main.c
+	<stdio.h>
+	<stdlib.h>
+
+1558969507 source:e:\programming\trash\for.c
+	<stdio.h>
+	<string.h>
+	<math.h>
+	<stdlib.h>
+
+1559669764 source:e:\programming\trash\test\matrix 1.c
+	<stdio.h>
+	<string.h>
+	<math.h>
+	<stdlib.h>
+	<time.h>
+
+1559946542 source:e:\programming\trash\test\test1.c
+
+1559946559 source:e:\programming\trash\test\test2.c
+

@@ -1,0 +1,10 @@
+Arsenal 5
+Dukla 9
+Kasimpasa 10
+Atletico 2
+Inter 1
+Everton 4
+Bayern 3
+Juventus 7
+United 8
+Roma 6

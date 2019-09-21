@@ -1,0 +1,4 @@
+Mark of car = askfngkdjg
+Weight of car = 34.55
+Max speed = 456.55
+Car is ON

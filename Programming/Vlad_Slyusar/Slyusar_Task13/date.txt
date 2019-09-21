@@ -1,0 +1,13 @@
+Producer = Asus
+Color = Black
+Name = Asus ROG Gladius II
+Weight = 0.13
+Width = 67
+Length = 45
+Height = 126
+Optic = Optic
+Connector = Wireless/Bluetooth
+Sensitivity = 16000
+Number of buttons = 6
+Features = Aura Sync RGB LED backlight
+Price = 2400

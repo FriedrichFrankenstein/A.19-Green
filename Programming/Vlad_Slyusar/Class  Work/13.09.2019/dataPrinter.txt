@@ -1,0 +1,36 @@
+Model is Epson
+Type is inkjet
+Price is 1199.98
+
+
+
+Model is HP
+Type is laserjet
+Price is 1599.98
+
+
+
+Model is Epson
+Type is inkjet
+Price is 10000
+
+
+
+Model is Epson
+Type is inkjet
+Price is 1199.98
+
+
+
+Model is HP
+Type is laserjet
+Price is 1599.98
+
+
+
+Model is Epson
+Type is 3D
+Price is 10000
+
+
+
