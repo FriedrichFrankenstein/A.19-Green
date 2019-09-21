@@ -1,0 +1,5 @@
+animal
+load
+reason
+early
+dream
