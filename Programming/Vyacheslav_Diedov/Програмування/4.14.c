@@ -39,8 +39,8 @@ int* inputArr(int* sum, int max, int N, int t){
 		N += 1;
 		t = *sum;
 	if((N+t) < max){
-		sum++;
 		*sum = N + t;
 		inputArr(sum, max, N , t);
+		sum++;
 	}
 }
