@@ -47,13 +47,6 @@ int main()
 
 
 
-
-
-
-
-
-
-
 //    if ( abs(averageMinus) < averagePlus){
 //        for (i = 0; i <  20 - N; i++){
 //            if (abs(arrPlus[i] - averagePlus) < min){
