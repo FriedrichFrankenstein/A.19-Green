@@ -34,9 +34,9 @@ int main()
     for ( i = 0; i < 10; i++ )
     {
         x = i * 2 + 2;
-        PushTail ( Queue1, x );
-        x = i * 9 + 5;
         PushTail ( Queue2, x );
+        x = i * 9 + 5;
+        PushTail ( Queue1, x );
     }
     PNode p, q;
     p = Queue1->Head;
@@ -119,5 +119,5 @@ void PopHead ( PQueue Q, PQueue Q1 ) // функція видалeння вузла з початку черги
     if ( Q->Head != NULL ) // якщо черга не залишилася пуста -
         Q->Head->prev = NULL; // “обнуляємо” покажчик prev вузла, який став початком черги
     else
-        Q1->Tail = NULL; // інакше - “обнуляємо” також покажчик на кінець черги
+        Q->Tail = NULL; // інакше - “обнуляємо” також покажчик на кінець черги
 }
