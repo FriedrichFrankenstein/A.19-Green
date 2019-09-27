@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1556881162 source:c:\users\user\desktop\Програмування\olimp\mereji\pustovoitenko_v.v._zadanie_2.3\main.cpp
+	<iostream>
+	<stdio.h>
+	<fstream>
+

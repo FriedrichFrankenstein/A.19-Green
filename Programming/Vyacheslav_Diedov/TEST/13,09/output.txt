@@ -1,0 +1,5 @@
+marka - Mazda, model - 323,  max speed = 240, price = 2000
+marka - Alfa romeo159, model - 159,  max speed = 290, price = 9000
+marka - VolksvagenCC, model - CC,  max speed = 320, price = 14000
+marka - LamburginiGallardo, model - Gallardo,  max speed = 350, price = 200000
+marka - Ferrari, model - Plaza,  max speed = 360, price = 500000
