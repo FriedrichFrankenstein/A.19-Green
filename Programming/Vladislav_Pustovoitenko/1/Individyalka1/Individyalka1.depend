@@ -1,0 +1,23 @@
+# depslib dependency file v1.0
+1569582301 source:e:\a.19-green\programming\vladislav_pustovoitenko\1\individyalka1\cfraction.cpp
+	<stdio.h>
+	<conio.h>
+	<math.h>
+	<sstream>
+	"CFraction.h"
+
+1569572377 e:\a.19-green\programming\vladislav_pustovoitenko\1\individyalka1\cfraction.h
+	<iostream>
+
+1569584087 source:e:\a.19-green\programming\vladislav_pustovoitenko\1\individyalka1\main.cpp
+	<iostream>
+	"CFraction.h"
+
+1569597828 source:d:\it academy\programes\112\untitled 6.c
+	<stdio.h>
+	<conio.h>
+	<time.h>
+	<stdlib.h>
+	<windows.h>
+	<string.h>
+
