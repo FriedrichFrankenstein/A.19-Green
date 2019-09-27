@@ -1,0 +1,79 @@
+---------------------------------------------------
+x=list() #or x = []
+print(type(x))                 |
+---------------------------------------------------
+x = [-7.2,5,"tak",[12,4,25.5],11]
+
+print(type(x))
+y = ["krya", 46, 21, 3, 91.56,[14,15,16]]
+print(x+y)      #concordination (unatiot of list)
+x.extend(y)     #Add list in the end
+x.append(11)    #Add every type
+x[2]=list(x[2]) #
+x[2] = "".join(x[2])
+print(x[-1])    #last element                     |
+print(x[3][2])  #list inside list                 |
+  for ln in x:
+                                    |   
+     print(ln,type(ln))                           | 
+---------------------------------------------------
+x = [-7.2,5,"tak",[12,4,[25.5]],11]
+
+y = ["krya", 46, 21, 3, 91.56,[14,15,16]]
+
+print(x.index("tak"))
+-----------------------------------
+x = [-7.2,5,"tak",[12,4,[25.5]],11,11,11]
+y = ["krya", 46, 21, 3, 91.56,[14,15,16]]
+
+print(x.index("tak"))
+
+print(x.count(11))
+
+x.pop(1)
+x.clear()
+
+print(x)
+---------------------------------------------
+x = [-7.2,5,"tak",[12,4,[25.5]],11,11,11]
+
+
+i=0
+
+while(i != len(x)):
+    
+if(type(x[i])==int):
+
+        x.pop(i)
+
+    else:
+
+        i+=1
+
+        
+
+print(x)
+---------------------------------------------
+x = [-7.2,5,"tak",[12,4,[25.5]],11,11,11]
+
+
+i=0
+
+while(i != len(x)):
+
+    if(type(x[i]) in (int,float)):
+
+        x.pop(i)
+
+    else:
+
+        i+=1
+
+        
+
+print(x)
+
+
+
+
+
