@@ -104,8 +104,7 @@ PNode DeleteNode(PNode Head, PNode OldNode)
 PNode FindTask (PNode Head)
 {
 	PNode q = Head;
-//	if (Head->word <= 5 || Head->count > 1) Head = q->next;
-	while (q != NULL) { 
+	while (q != NULL) {
 		if ( strlen ( q->word ) < 5 || q->count > 1 ){
 		printf("Count = %i, word - %s\n",q->count, q->word);
 		Head = DeleteNode(Head, q);
@@ -126,20 +125,20 @@ int main()
 	in = fopen("input1.txt","r");
 	SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
-    
+
 	if (in!=NULL) printf("File open successfull! Press ENTER\n");
 	getchar();
 	while (fscanf(in,"%s",word)!=EOF) {
 		//n = fscanf(in,"%s",word); // читаємо слово з файлу
 		//if (n<=0) break;		// якщо файл пустий - вихід з циклу
 		p = Find(Head,word); 	// шукаємо слово в списку
-		if (p!=NULL) 			// якщо знайшли - 
+		if (p!=NULL) 			// якщо знайшли -
 			p->count ++; 		// збільшуємо лічильник
 		else {
 			p = CreateNode(word); // інакше - створюємо новий вузол
 			where = FindPlace(Head,word); // шукамо місце для вставки за алфавітом
 			if (!where)				// якщо не знайшли -
-				Head=AddLast(Head,p);	// вставляємо вузол зі словом в кінець списку 
+				Head=AddLast(Head,p);	// вставляємо вузол зі словом в кінець списку
 			else Head=AddBefore(Head,where,p); // інакше - вставляємо вузол перед знайденим (місце вставки)
 		}
 	}
