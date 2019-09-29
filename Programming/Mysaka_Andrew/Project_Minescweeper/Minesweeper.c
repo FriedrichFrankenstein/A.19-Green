@@ -2,17 +2,20 @@
 #include <stdlib.h>
 #include <stdlib.h>
 #include <time.h>
+#include <windows.h>
 
 void difficultySelection();
 char **reserveBoard();
 void createBoard(char **board);
 void printBoard(char **board);
+void printMenu();
 void placesMines(char **board);
 void countMines(char **board);
 void game(char **boardFalse, char **boardReal);
+void gotoxy(int x, int y);
 char passNumbers(int bomb);
 void expands(char **boardFalse, char **boardReal, int i, int j);
-void checkCell(char **board);
+void checkCell(char **board, int x, int y);
 void freeBoard(char **board);
 
 int nRow, nCol, mines;
@@ -33,6 +36,9 @@ int main()
 
 //We show a board without any data on the screen
     printBoard(boardFalse);
+    
+//We show a menu    
+    printMenu();
     
 //We put the mines on the board and assign values to the Celles that do not have mines
     placesMines(boardReal);
@@ -69,15 +75,16 @@ void difficultySelection()
     switch (difficulty)
     {
     case 1:
-        nRow=8, nCol=8, mines=10;
+        nRow=4, nCol=5, mines=4;
         break;
     case 2:
-        nRow=16, nCol=16, mines=40;
+        nRow=7, nCol=8, mines=15;
         break;
     case 3:
-        nRow=16, nCol=30, mines=99;
+        nRow=10, nCol=10, mines=25;
         break;
     }
+    system("cls");
 }
 /*----------------------------------------------------------------
 Role: reserve enough memory to create a board
@@ -90,20 +97,22 @@ char **reserveBoard()
 //We reserve the board's memory
     board=(char**)malloc(nRow*sizeof(char*));
     if(board == NULL)
-        printf("Could not reserve memory\n");
-
+    {
+    	printf("Could not reserve memory\n");
+	}
     else
     {
         for(i=0; i<nRow; i++)
         {
             board[i]=(char*)malloc(nCol*sizeof(char));
             if(board[i] == NULL)
-                printf("Could not reserve memory\n");
+            {
+            	printf("Could not reserve memory\n");
+			}
         }
     }
     return (board);
 }
-
 /*------------------------------------------
 Role: create a board for the game
 ------------------------------------------*/
@@ -112,8 +121,12 @@ void createBoard(char **board)
     int i, j;
 
     for(i=0; i<nRow; i++)
-        for(j=0; j<nCol; j++)
-            board[i][j] = ' ';
+    {
+    	for(j=0; j<nCol; j++)
+    	{
+    		board[i][j] = ' ';
+		}
+	}        
 }
 /*--------------------------------------------
 Role: show one board per screen
@@ -121,40 +134,42 @@ Role: show one board per screen
 void printBoard(char **board)
 {
     int i, j;
-
 //We show the board by screen, attaching to it a set of coordinates for a simpler view of this
-    printf("  ");
-    for(i=0; i<nRow; i++)
-        printf(" %d", i+1);
-
-    printf("\n");
-
-    for(i=0; i<nRow; i++)
-    {
-        if(i<9)
-        {
-            printf(" %d", i+1);
-            printf("|");
-        }
-        else
-        {
-            printf("%d", i+1);
-            printf("|");
-        }
-        for(j=0; j<nCol; j++)
-        {
-            printf("%c", board[i][j]);
-            if(j>=9)
-            {
-            	printf(" |");
+for (i = 0; i<nRow; i++)
+	{
+		for (j = 0; j<nCol; j++)
+		{
+			printf ("+---");
+		}	
+		printf ("+\n");
+		for (j = 0; j<=nCol; j++)
+		{
+			printf ("| ");
+			if (j < nCol)
+			{
+				printf("%c ", board[i][j]);
 			}
-            else
-            {
-            	printf("|");
-			}
-        }
-        printf("\n");
-    }
+		}
+		printf ("\n");	
+	}
+	for (j = 0; j<nCol; j++)
+	{
+		printf ("+---");
+	}	
+	printf ("+\n");     	
+}
+/*-----------------------------------------------------------
+Role: Display menu of the game
+-----------------------------------------------------------*/
+void printMenu()
+{
+	printf("\nMenu: \t\"Enter\" - select the cell;\n");
+	printf("\t\"X\" - notice a bomb in the cell;\n");
+	printf("\t\"%c\" - move the cursor to the right;\n", 26);
+	printf("\t\"%c\" - move the cursor to the left;\n", 27);
+	printf("\t\"%c\" - move the cursor to the up;\n", 24);
+	printf("\t\"%c\" - move the cursor to the down;\n", 25);
+	printf("\t\"Esc\" - exit the game.\n");
 }
 
 /*-----------------------------------------------------------
@@ -165,7 +180,7 @@ void placesMines(char **board)
     int i, j, placesBomb, count=0;
     srand(time(NULL));
 
-//We assign mines to random squares on the board, until there are 10 mines
+//We assign mines to random squares on the board
     do
     {
         for(i=0; i<nRow; i++)
@@ -175,7 +190,7 @@ void placesMines(char **board)
                 placesBomb=((rand()%999)+1);
                 if(placesBomb>=1 && placesBomb<=10)
                 {
-                    if(count <= mines)
+                    if((count < mines) && (board[i][j] != 'M'))
                     {
                         board[i][j]= 'M';
                         count++;
@@ -202,220 +217,40 @@ void countMines(char **board)
             bomb=0;
             if(board[i][j] != 'M')
             {
-//Top left corner
-                if(i==0 && j==0)
+                if((i-1>=0) && (j-1>=0) && (board[i-1][j-1] == 'M'))
                 {
-                    if(board[i+1][j] == 'M')
-                    {
-                        bomb++;
-                    }
-                    if(board[i][j+1] == 'M')
-                    {
-                        bomb++;
-                    }
-                    if(board[i+1][j+1] == 'M')
-                    {
-                        bomb++;
-                    }
-                    minesChar = passNumbers(bomb);
-                    board[i][j] = minesChar;
+                    bomb++;
                 }
-//Top right corner
-                if(i==0 && j==nCol-1)
+                if((i-1>=0) && (board[i-1][j] == 'M'))
                 {
-                    if(board[i+1][j] == 'M')
-                    {
-                        bomb++;
-                    }
-                    if(board[i][j-1] == 'M')
-                    {
-                        bomb++;
-                    }
-                    if(board[i+1][j-1] == 'M')
-                    {
-                        bomb++;
-                    }
-                    minesChar = passNumbers(bomb);
-                    board[i][j] = minesChar;
+                    bomb++;
                 }
-//Bottom left corner
-                if(i==nRow-1 && j==0)
+                if((i-1>=0) && (j+1<nCol) && (board[i-1][j+1] == 'M'))
                 {
-                    if(board[i-1][j] == 'M')
-                    {
-                        bomb++;
-                    }
-                    if(board[i][j+1] == 'M')
-                    {
-                        bomb++;
-                    }
-                    if(board[i-1][j+1] == 'M')
-                    {
-                        bomb++;
-                    }
-                    minesChar = passNumbers(bomb);
-                    board[i][j] = minesChar;
+                    bomb++;
                 }
-//Bottom right corner
-                if(i==nRow-1 && j==nCol-1)
+                if((j+1<nCol) && (board[i][j+1] == 'M'))
                 {
-                    if(board[i-1][j] == 'M')
-                    {
-                        bomb++;
-                    }
-                    if(board[i][j-1] == 'M')
-                    {
-                        bomb++;
-                    }
-                    if(board[i-1][j-1] == 'M')
-                    {
-                        bomb++;
-                    }
-                    minesChar = passNumbers(bomb);
-                    board[i][j] = minesChar;
+                    bomb++;
                 }
-//Top side (not counting the corners)
-                if(i==0 && j!=0 && j!=nCol-1)
+                if((j-1>=0) && (board[i][j-1] == 'M'))
                 {
-                    if(board[i+1][j-1] == 'M')
-                    {
-                        bomb++;
-                    }
-                    if(board[i+1][j] == 'M')
-                    {
-                        bomb++;
-                    }
-                    if(board[i+1][j+1] == 'M')
-                    {
-                        bomb++;
-                    }
-                    if(board[i][j-1] == 'M')
-                    {
-                        bomb++;
-                    }
-                    if(board[i][j+1] == 'M')
-                    {
-                        bomb++;
-                    }
-                    minesChar = passNumbers(bomb);
-                    board[i][j] = minesChar;
+                    bomb++;
                 }
-//Left side (not counting the corners)
-                if(j==0 && i!=0 && i!=nRow-1)
+                if((j-1>=0) && (i+1<nRow) && (board[i+1][j-1] == 'M'))
                 {
-                    if(board[i-1][j+1] == 'M')
-                    {
-                        bomb++;
-                    }
-                    if(board[i][j+1] == 'M')
-                    {
-                        bomb++;
-                    }
-                    if(board[i+1][j+1] == 'M')
-                    {
-                        bomb++;
-                    }
-                    if(board[i-1][j] == 'M')
-                    {
-                        bomb++;
-                    }
-                    if(board[i+1][j] == 'M')
-                    {
-                        bomb++;
-                    }
-                    minesChar = passNumbers(bomb);
-                    board[i][j] = minesChar;
+                    bomb++;
                 }
-//Bottom side (not counting the corners)
-                if(i==nRow-1 && j!=0 && j!=nCol-1)
+                if((i+1<nRow) && (board[i+1][j] == 'M'))
                 {
-                    if(board[i-1][j-1] == 'M')
-                    {
-                        bomb++;
-                    }
-                    if(board[i-1][j] == 'M')
-                    {
-                        bomb++;
-                    }
-                    if(board[i-1][j+1] == 'M')
-                    {
-                        bomb++;
-                    }
-                    if(board[i][j-1] == 'M')
-                    {
-                        bomb++;
-                    }
-                    if(board[i][j+1] == 'M')
-                    {
-                        bomb++;
-                    }
-                    minesChar = passNumbers(bomb);
-                    board[i][j] = minesChar;
+                    bomb++;
                 }
-//Right side (not counting the corners)
-                if(j==nCol-1 && i!=0 && i!=nRow-1)
+                if((i+1<nRow) && (j+1<nCol) && (board[i+1][j+1] == 'M'))
                 {
-                    if(board[i-1][j-1] == 'M')
-                    {
-                        bomb++;
-                    }
-                    if(board[i][j-1] == 'M')
-                    {
-                        bomb++;
-                    }
-                    if(board[i+1][j-1] == 'M')
-                    {
-                        bomb++;
-                    }
-                    if(board[i-1][j] == 'M')
-                    {
-                        bomb++;
-                    }
-                    if(board[i+1][j] == 'M')
-                    {
-                        bomb++;
-                    }
-                    minesChar = passNumbers(bomb);
-                    board[i][j] = minesChar;
+                    bomb++;
                 }
-//Board rest
-                if(i!=0 && j!=0 && i!=nRow-1 && j!=nCol-1)
-                {
-                    if(board[i-1][j-1] == 'M')
-                    {
-                        bomb++;
-                    }
-                    if(board[i-1][j] == 'M')
-                    {
-                        bomb++;
-                    }
-                    if(board[i-1][j+1] == 'M')
-                    {
-                        bomb++;
-                    }
-                    if(board[i][j-1] == 'M')
-                    {
-                        bomb++;
-                    }
-                    if(board[i][j+1] == 'M')
-                    {
-                        bomb++;
-                    }
-                    if(board[i+1][j-1] == 'M')
-                    {
-                        bomb++;
-                    }
-                    if(board[i+1][j] == 'M')
-                    {
-                        bomb++;
-                    }
-                    if(board[i+1][j+1] == 'M')
-                    {
-                        bomb++;
-                    }
-                    minesChar = passNumbers(bomb);
-                    board[i][j] = minesChar;
-                }
+                minesChar = passNumbers(bomb);
+                board[i][j] = minesChar;
             }
         }
     }
@@ -425,97 +260,107 @@ Role: main gameplay
 ------------------------------------*/
 void game(char **boardFalse, char **boardReal)
 {
-	int x, y, victoria=0, i, j, k, marking, count;
-	
+	int x=2, y=1, victoria=0, i, j, k, keys, count, bombLeft = mines;
+    gotoxy(x, y);
+
 	do
     {
 //We ask the user if he wants to check a Cell until a valid answer is given
-        do
-        {
-            printf("Do you want to check some Cell? (yes = 1, no = 0, exit = 7):");
-            scanf("%d", &marking);
-            if(marking!=1 && marking!=0 && marking!=7)
-            {
-                printf("Error: Invalid response\n\n");
-            }
-        }
-        while(marking!=1 && marking!=0 && marking!=7);
-
-//If the user wishes to check a Cell, we mark the selected Cell and show the result on the screen
-        if(marking == 7)
-        {
-        	printf("\n\nReally? Sad, real sappers just don't give up!\n\n");
-			return;
-		}
-		if(marking == 1)
-        {
-            checkCell(boardFalse);
-            system("cls");
-            printBoard(boardFalse);
-        }
-        if(marking == 0)
-        {
-//We ask the user to select a Cell
-            do
-            {
-                printf("Select a Cell\n");
-                printf("Row: ");
-                scanf("%d", &x);
-                printf("Column: ");
-                scanf("%d", &y);
-                if(x>nRow || y>nCol)
-                {
-                    printf("There is no such position, try again\n\n");
-                }
-            }
-            while(x>nRow || y>nCol);
+		keys = getch();
+    	switch (keys)
+    	{
+    		case 77: 
+				x+=4;
+				gotoxy(x, y);
+				break;
+			case 75:
+				x-=4;     
+            	gotoxy(x, y);
+            	break;
+            case 72:
+				y-=2;     
+            	gotoxy(x, y);
+            	break;
+            case 80:
+            	y+=2;
+            	gotoxy(x, y);
+            	break;
+            case 27:
+            	printf("\n\nReally? Sad, real sappers just don't give up!\n\n"); 
+				return;
+            case 13:
 //If the selected Cell does not have any mine around, we show the values around the screen, until you find Celles that have mines around
-            boardFalse[x-1][y-1] = boardReal[x-1][y-1];
-			for(k=0; k<10; k++)
-			{
-				for(i=0; i<nRow; i++)
+				boardFalse[(y-1)/2][(x-2)/4] = boardReal[(y-1)/2][(x-2)/4];
+				for(k=0; k<10; k++)
 				{
-                    for(j=0; j<nCol; j++)
-                    {
-                        expands(boardFalse, boardReal, i, j);
-                    }
-                }
-			}
+					for(i=0; i<nRow; i++)
+					{
+                    	for(j=0; j<nCol; j++)
+                    	{
+                        	expands(boardFalse, boardReal, i, j);
+                    	}
+                	}
+				}
 //We remove the previous results from the screen so that they do not bother the user
-            system("cls");
+            	system("cls");
             
 //We show current results by screen
-            printBoard(boardFalse);
-            
+            	printBoard(boardFalse);
+            	printf ("\n\tBOMB left: %i\n", bombLeft);
+            	printMenu();
+				
 //If the Cell selected by the user had a mine, the game is over
-            if(boardFalse[x-1][y-1] == 'M')
-            {
-                victoria=1;
-                printf("\nB O O O M M M M M !\n\n");
-                printBoard(boardReal);
-            }
-            count=0;
-            for(i=0; i<nRow; i++)
-            {
-                for(j=0; j<nCol; j++)
-                {
-                    if(boardFalse[i][j] == boardReal[i][j])
-                    {
-                        count++;
-                    }
-                }
-            }
+            	if(boardFalse[(y-1)/2][(x-2)/4] == 'M')
+            	{
+                	victoria=1;
+                	printf("\n\nB O O O M M M M M !\n\n");
+                	printBoard(boardReal);
+            	}
+            	count=0;
+            	for(i=0; i<nRow; i++)
+            	{
+                	for(j=0; j<nCol; j++)
+                	{
+                    	if(boardFalse[i][j] == boardReal[i][j])
+                    	{
+                        	count++;
+                    	}
+                	}
+            	}
 //If all the Celles on both boards are equal, except for the mines, the game is over
-            if(count == (nRow*nCol)-mines)
-            {
-                victoria=1;
-                printf("\nCongratulations, you have won\n\n");
-            }
-        }
+            	if(count == ((nRow*nCol)-mines))
+            	{
+                	victoria=1;
+//                	system("cls");
+                	printf("\n\n\nCongratulations, you have WON!!!\n\n");
+                	printBoard(boardReal);
+            	}
+            	break;
+//If the user wishes to check a Cell, we mark the selected Cell and show the result on the screen            	
+		case 120:
+			checkCell(boardFalse, (y-1)/2, (x-2)/4);
+			bombLeft--;
+			system("cls");
+			printBoard(boardFalse);
+			printf ("\n\tBOMB left: %i\n", bombLeft);
+			printMenu();
+			break;
+		}
     }
     while(victoria==0);	
 }
-
+/*-------------------------------------------------------------------------
+Role: movement on the board game using the keys
+-------------------------------------------------------------------------*/
+void gotoxy(int x, int y)
+{
+	static HANDLE h = NULL;  
+	if(!h)
+		h = GetStdHandle(STD_OUTPUT_HANDLE);
+  
+	COORD c = { x, y };  
+	SetConsoleCursorPosition(h, c);
+}
 /*-------------------------------------------------------------------------
 Output: 0, 1, 2, 3, 4, 5, 6, 7 or 8 in char format
 Role: convert an integer data into a character data
@@ -631,28 +476,13 @@ void expands(char **boardFalse, char **boardReal, int i, int j)
         }
     }
 }
-
 /*---------------------------------------------------------
 Commitment: check the Cell selected by the user
 ---------------------------------------------------------*/
-void checkCell(char **board)
+void checkCell(char **board, int x, int y)
 {
-    int x, y;
 //We mark with an X the Cell selected by the user
-    do
-    {
-        printf("Check one Cell\n");
-        printf("Row: ");
-        scanf("%d",&x);
-        printf("Column: ");
-        scanf("%d",&y);
-        if(x>nRow || y>nCol)
-        {
-            printf("There is no such position, try again\n\n");
-        }
-    }
-    while(x>nRow || y>nCol);
-    board[x-1][y-1] = 'X';
+	board[x][y] = 'X';
 }
 /*--------------------------------------------------------
 Role: free the memory reserved for a board
