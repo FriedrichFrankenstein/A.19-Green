@@ -1,0 +1,10 @@
+Barcelona Barcelona 4
+Athletic Bilbao 2
+Real Madrid 1
+Bayern Munich 3
+Bayer Leverkusen 7
+Schalke Gelsenkirchen 6
+Hertha Berlin 5
+Arsenal London 10
+Manchester United 9
+Shakhtar Donetsk 8

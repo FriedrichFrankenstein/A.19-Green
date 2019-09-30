@@ -39,11 +39,9 @@ int main()
     }
     Temp = Strack2;
     while (Temp != NULL){
-<<<<<<< HEAD:StackAndQueue/Stack/Dynamic8.c
+
         printf("Struck = %i\n", Temp->number);
-=======
         printf("Stack = %i\n", Temp->number);
->>>>>>> 3f43ffb9b7cff076708957c31990280045dcef09:Programming/StackAndQueue/Stack/Dynamic8.c
         Temp = Temp->next;
     }
     getch();

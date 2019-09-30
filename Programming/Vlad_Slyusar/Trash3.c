@@ -3,12 +3,15 @@
 #include <stdlib.h>
 #include <conio.h>
 
-int func (int i)
+int func (int i){
     if (i == 10){
         return i;
-    } else
+    }
+    else
     {
-       func(++i);
+        func(++i);
+       if (i == 10)
+        return 5;
     }
 }
 
